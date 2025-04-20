@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Simple Form Validation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f2f5;
+      padding: 50px;
+      text-align: center;
+    }
+
+    form {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      display: inline-block;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    input {
+      display: block;
+      margin: 15px auto;
+      padding: 10px;
+      width: 250px;
+      font-size: 16px;
+    }
+
+    .error {
+      color: red;
+      font-size: 14px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <form id="myForm">
+    <h2>Sign Up</h2>
+    <input type="text" id="name" placeholder="Enter your name">
+    <div class="error" id="nameError"></div>
+
+    <input type="email" id="email" placeholder="Enter your email">
+    <div class="error" id="emailError"></div>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    const form = document.getElementById('myForm');
+    const name = document.getElementById('name');
+    const email = document.getElementById('email');
+    const nameError = document.getElementById('nameError');
+    const emailError = document.getElementById('emailError');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      let valid = true;
+
+      // Name Validation
+      if (name.value.trim() === "") {
+        nameError.textContent = "Name is required.";
+        valid = false;
+      } else {
+        nameError.textContent = "";
+      }
+
+      // Email Validation
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (email.value.trim() === "") {
+        emailError.textContent = "Email is required.";
+        valid = false;
+      } else if (!emailPattern.test(email.value.trim())) {
+        emailError.textContent = "Enter a valid email address.";
+        valid = false;
+      } else {
+        emailError.textContent = "";
+      }
+
+      // If valid, you can proceed (e.g., send data to server)
+      if (valid) {
+        alert("Form submitted successfully!");
+        form.reset();
+      }
+    });
+  </script>
+
+</body>
+</html>
